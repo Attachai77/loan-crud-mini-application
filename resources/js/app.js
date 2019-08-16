@@ -1,3 +1,46 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+import App from './views/App'
+import LoanList from './views/LoanList'
+import AddLoan from './views/AddLoan'
+import EditLoan from './views/EditLoan'
+import ViewLoan from './views/ViewLoan'
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: LoanList
+        },
+        {
+            path: '/loan-list',
+            name: 'loan-list',
+            component: LoanList,
+        },
+        {
+            path: '/add-loan',
+            name: 'add-loan',
+            component: AddLoan,
+        },
+        {
+            path: '/edit-loan',
+            name: 'edit-loan',
+            component: EditLoan,
+        },
+        {
+            path: '/view-loan',
+            name: 'view-loan',
+            component: ViewLoan,
+        },
+    ],
+});
+
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -29,4 +72,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    components: { App },
+    router
 });

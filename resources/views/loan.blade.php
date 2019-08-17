@@ -12,6 +12,9 @@
             font-weight: bold;
             text-align: right;
         }
+        .btn-light {
+            background-color: #e4e4e4;
+        }
         </style>
     </head>
     <body>

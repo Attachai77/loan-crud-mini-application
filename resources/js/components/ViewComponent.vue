@@ -19,6 +19,8 @@
             <div class="col-2"><b>Created at :</b></div>
             <div class="col-10">{{ loan.created_at }}</div>
         </div><br>
+        <button @click="$router.push('/')" type="button" class="btn btn-light">Back</button>
+        <br><br>
 
         <h3>Repayment Schedules</h3>         
         <table class="table table-striped">
@@ -27,20 +29,20 @@
                 <th>Payment No.</th>
                 <th>Date</th>
                 <th>Payment Amount</th>
-                <th>Email</th>
                 <th>Principal</th>
+                <th>Interest</th>
                 <th>Balance</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>com</td>
-                <td>com</td>
-                <td>com</td>
-                <td>com</td>
-            </tr>
+                <tr v-for="schedule in PaymentSchedules" :key="schedule.id">
+                    <td>{{ schedule.id }}</td>
+                    <td>{{ schedule.date }}</td>
+                    <td>{{ schedule.payment_amount }}</td>
+                    <td>{{ schedule.principal }}</td>
+                    <td>{{ schedule.interest }}</td>
+                    <td>{{ schedule.balance }}</td>
+                </tr>
             </tbody>
         </table>
 
@@ -49,29 +51,27 @@
 </template>
 
 <script>
-    export default {
+export default {
 
-      data() {
+    data() {
         return {
-          loan: {}
+            loan: {},
+            PaymentSchedules: {}
         }
-      },
-      created() {
+    },
+    created() {
         let uri = `/api/loan/edit/${this.$route.params.id}`;
         this.axios.get(uri).then((response) => {
             this.loan = response.data;
-            console.log(response.data);
+            // console.log(response.data);
             // console.log(this.$route.params.id);
         });
-      },
-      methods: {
-        updateLoan() {
-          let uri = `/api/loan/update/${this.$route.params.id}`;
-          this.axios.post(uri, this.loan).then((response) => {
-            this.$router.push({name: 'loans'});
-            console.log(response);
-          });
-        }
-      }
+
+        let uriGetSchedule = `/api/loan/getPaymentSchedule/${this.$route.params.id}`;
+        this.axios.get(uriGetSchedule).then(response => {
+            this.PaymentSchedules = response.data.data;
+            console.log(response.data);
+        });
     }
+}
 </script>

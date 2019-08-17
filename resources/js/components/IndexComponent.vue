@@ -44,6 +44,7 @@ export default {
         let uri = '/api/loans';
         this.axios.get(uri).then(response => {
             this.loans = response.data.data;
+            console.log(response.data);
         });
     },
     methods: {

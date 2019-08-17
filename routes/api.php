@@ -24,3 +24,4 @@ Route::post('/loan/update/{id}', 'LoanController@update');
 Route::get('/loan/view/{id}', 'LoanController@view');
 Route::delete('/loan/delete/{id}', 'LoanController@delete');
 Route::get('/loans', 'LoanController@index');
+Route::get('/loan/getPaymentSchedule/{id}', 'LoanController@getPaymentSchedule');

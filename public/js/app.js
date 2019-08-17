@@ -2117,6 +2117,7 @@ __webpack_require__.r(__webpack_exports__);
     var uri = '/api/loans';
     this.axios.get(uri).then(function (response) {
       _this.loans = response.data.data;
+      console.log(response.data);
     });
   },
   methods: {
@@ -2192,10 +2193,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loan: {}
+      loan: {},
+      PaymentSchedules: {}
     };
   },
   created: function created() {
@@ -2203,23 +2207,14 @@ __webpack_require__.r(__webpack_exports__);
 
     var uri = "/api/loan/edit/".concat(this.$route.params.id);
     this.axios.get(uri).then(function (response) {
-      _this.loan = response.data;
-      console.log(response.data); // console.log(this.$route.params.id);
+      _this.loan = response.data; // console.log(response.data);
+      // console.log(this.$route.params.id);
     });
-  },
-  methods: {
-    updateLoan: function updateLoan() {
-      var _this2 = this;
-
-      var uri = "/api/loan/update/".concat(this.$route.params.id);
-      this.axios.post(uri, this.loan).then(function (response) {
-        _this2.$router.push({
-          name: 'loans'
-        });
-
-        console.log(response);
-      });
-    }
+    var uriGetSchedule = "/api/loan/getPaymentSchedule/".concat(this.$route.params.id);
+    this.axios.get(uriGetSchedule).then(function (response) {
+      _this.PaymentSchedules = response.data.data;
+      console.log(response.data);
+    });
   }
 });
 
@@ -38328,9 +38323,48 @@ var render = function() {
     ]),
     _c("br"),
     _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-light",
+        attrs: { type: "button" },
+        on: {
+          click: function($event) {
+            return _vm.$router.push("/")
+          }
+        }
+      },
+      [_vm._v("Back")]
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _c("br"),
+    _vm._v(" "),
     _c("h3", [_vm._v("Repayment Schedules")]),
     _vm._v(" "),
-    _vm._m(6)
+    _c("table", { staticClass: "table table-striped" }, [
+      _vm._m(6),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.PaymentSchedules, function(schedule) {
+          return _c("tr", { key: schedule.id }, [
+            _c("td", [_vm._v(_vm._s(schedule.id))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(schedule.date))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(schedule.payment_amount))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(schedule.principal))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(schedule.interest))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(schedule.balance))])
+          ])
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -38384,37 +38418,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-striped" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("Payment No.")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Date")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Payment Amount")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Principal")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Balance")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_vm._v("John")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Doe")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("com")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("com")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("com")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("com")])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Payment No.")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Payment Amount")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Principal")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Interest")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Balance")])
       ])
     ])
   }

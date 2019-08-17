@@ -15,4 +15,6 @@
 //     return view('welcome');
 // });
 
-Route::get('/{any}', 'LoansController@index')->where('any', '.*');
+Route::get('/{any}', function () {
+    return view('loan');
+})->where('any', '.*');

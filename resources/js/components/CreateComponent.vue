@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Create Loans</h1>
+        <h1>Create Loan</h1>
         <form @submit.prevent="addLoan">
 
             <div class="form-group row">
@@ -78,7 +78,7 @@ export default {
             let uri = '/api/loan/create';
             this.axios.post(uri, this.loan).then((response) => {
                 console.log(response);
-                // this.$router.push({name: 'loans'});
+                this.$router.push({name: 'loans'});
             });
         }
     }

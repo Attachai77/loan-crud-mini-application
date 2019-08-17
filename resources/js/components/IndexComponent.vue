@@ -23,9 +23,9 @@
                     <td>{{ loan.interest_rate }}</td>
                     <td>{{ loan.created_at }}</td>
                     <td>
-                        <router-link :to="{name: 'edit', params: { id: loan.id }}" class="btn btn-info">View</router-link>
+                        <router-link :to="{name: 'view', params: { id: loan.id }}" class="btn btn-info">View</router-link>
                         <router-link :to="{name: 'edit', params: { id: loan.id }}" class="btn btn-success">Edit</router-link>
-                        <router-link :to="{name: 'edit', params: { id: loan.id }}" class="btn btn-danger">Delete</router-link>
+                        <button class="btn btn-danger" @click.prevent="deletePost(loan.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
@@ -45,6 +45,15 @@ export default {
         this.axios.get(uri).then(response => {
             this.loans = response.data.data;
         });
+    },
+    methods: {
+        deletePost(id)
+        {
+            let uri = `/api/loan/delete/${id}`;
+            this.axios.delete(uri).then(response => {
+                this.loans.splice(this.loans.indexOf(id), 1);
+            });
+        }
     }
 }
 </script>

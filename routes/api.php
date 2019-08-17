@@ -21,5 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/loan/create', 'LoanController@store');
 Route::get('/loan/edit/{id}', 'LoanController@edit');
 Route::post('/loan/update/{id}', 'LoanController@update');
+Route::get('/loan/view/{id}', 'LoanController@view');
 Route::delete('/loan/delete/{id}', 'LoanController@delete');
 Route::get('/loans', 'LoanController@index');

@@ -14,6 +14,7 @@ Vue.use(VueAxios, axios);
 import CreateComponent from './components/CreateComponent.vue';
 import IndexComponent from './components/IndexComponent.vue';
 import EditComponent from './components/EditComponent.vue';
+import ViewComponent from './components/ViewComponent.vue';
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
       name: 'edit',
       path: '/edit/:id',
       component: EditComponent
+  },
+  {
+      name: 'view',
+      path: '/view/:id',
+      component: ViewComponent
   }
 ];
 

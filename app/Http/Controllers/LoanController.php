@@ -40,20 +40,26 @@ class LoanController extends Controller
 
     public function update($id, Request $request)
     {
-      $post = Loan::find($id);
+      $loan = Loan::find($id);
       $input = $request->all();
       $input['start_date'] = $input['start_year'].'-'.$input['start_month'].'-01';
 
-      $post->update($input);
+      $loan->update($input);
 
       return response()->json('successfully updated');
     }
 
+    public function view($id)
+    {
+      $loan = Loan::find($id);
+      return response()->json($loan);
+    }
+
     public function delete($id)
     {
-      $post = Loan::find($id);
+      $loan = Loan::find($id);
 
-      $post->delete();
+      $loan->delete();
 
       return response()->json('successfully deleted');
     }

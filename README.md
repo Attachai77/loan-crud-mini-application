@@ -4,5 +4,4 @@
 - composer install
 - npm install
 - connect database and run php artisan migrate
-- npm run watch
 - php artisan serve

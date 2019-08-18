@@ -2,6 +2,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+Vue.use(require('vue-moment'));
+
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 

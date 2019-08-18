@@ -33,7 +33,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Start Date : </label>
                 <div class="col-sm-3">
-                <select name="start_month" id="start_month" v-model="loan.start_month" class="form-control">
+                <select name="start_month" required id="start_month" v-model="loan.start_month" class="form-control">
                     <option value='01'>Janaury</option>
                     <option value='02'>February</option>
                     <option value='03'>March</option>
@@ -49,7 +49,7 @@
                 </select>
                 </div>
                 <div class="col-sm-3">
-                <select name="start_year" id="start_year" class="form-control" v-model="loan.start_year">
+                <select name="start_year" required id="start_year" class="form-control" v-model="loan.start_year">
                     <option  v-for="n in 34" :value="n+2016" v-bind:key="n">{{ n+2016 }}</option>
                 </select>
                 </div>

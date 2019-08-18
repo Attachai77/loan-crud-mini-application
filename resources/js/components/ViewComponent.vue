@@ -35,13 +35,13 @@
             </tr>
             </thead>
             <tbody>
-                <tr v-for="schedule in PaymentSchedules" :key="schedule.id">
-                    <td>{{ schedule.id }}</td>
-                    <td>{{ schedule.date }}</td>
-                    <td>{{ schedule.payment_amount }}</td>
-                    <td>{{ schedule.principal }}</td>
-                    <td>{{ schedule.interest }}</td>
-                    <td>{{ schedule.balance }}</td>
+                <tr v-for="(schedule, index) in PaymentSchedules" :key="schedule.id">
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ schedule.date | moment("MMM YYYY") }}</td>
+                    <td>{{ formatNumber(schedule.payment_amount) }}</td>
+                    <td>{{ formatNumber(schedule.principal) }}</td>
+                    <td>{{ formatNumber(schedule.interest) }}</td>
+                    <td>{{ formatNumber(schedule.balance) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -72,6 +72,14 @@ export default {
             this.PaymentSchedules = response.data.data;
             console.log(response.data);
         });
+    },
+    methods: {
+        formatNumber(value) {
+            value = Math.abs(value)
+            let val = (value/1).toFixed(2).replace(',', '.')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            
+        }
     }
 }
 </script>

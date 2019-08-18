@@ -78,19 +78,25 @@ class LoanController extends Controller
       $date = date("Y-m-d", strtotime("+1 month", strtotime($date) ));
 
       $r = $interest_rate/100;
-      $PMI = $loan_amount * ($r/12) / 1 -  (1 + ($r/12)) ^ (-12 * $loan_term );
+      $PMT = $this->calPMT($interest_rate , $loan_term , $loan_amount);
+      $prev_balance = $loan_amount;
 
       $loan_term_months = $loan_term * 12;
       for ($i=1; $i <= $loan_term_months; $i++) { 
 
-        $interest = ($r/12) * $loan_amount;
-        $principal = $PMI - $interest;
-        $balance = $loan_amount - $principal;
+        $interest = ($r/12) * $prev_balance;
+        // $interest = number_format((float)$interest, 2, '.', '');
+
+        $principal = $PMT - $interest;
+        // $principal = number_format((float)$principal, 2, '.', '');
+
+        $balance = $prev_balance - $principal;
+        // $balance = number_format((float)$balance, 2, '.', '');
         
         $repaymentSchedule = new RepaymentSchedule([
           'loan_id' => $loan_id,
           'date' =>$date,
-          'payment_amount' => $PMI,
+          'payment_amount' => $PMT,
           'principal' => $principal,
           'interest' => $interest,
           'balance' => $balance
@@ -98,19 +104,27 @@ class LoanController extends Controller
 
         $repaymentSchedule->save();
 
+        $prev_balance = $balance;
         $date = date("Y-m-d", strtotime("+1 month", strtotime($date) ));
       }
 
       return true;
     }
 
+    #param float $apr   Interest rate.
+    #param integer $term  Loan length in years. 
+    #param float $loan   The loan amount.
+    public function calPMT($apr, $term, $loan)
+    {
+      $term = $term * 12;
+      $apr = $apr / 1200;
+      $amount = $apr * -$loan * pow((1 + $apr), $term) / (1 - pow((1 + $apr), $term));
+      return $amount;
+    }
+
     public function getPaymentSchedule($id)
     {
-      #$paymentSchedule = RepaymentSchedule::where('loan_id',$id)->get();
-      // $paymentSchedule = RepaymentSchedule::all();
-      return new LoanCollection(RepaymentSchedule::all());
-      // return response()->json($paymentSchedule);
-      // return $paymentSchedule;
+      return new LoanCollection(RepaymentSchedule::where('loan_id', $id)->get());
     }
 
 }

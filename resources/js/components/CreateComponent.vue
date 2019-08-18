@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Create Loan</h1>
+        <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
         <form @submit.prevent="addLoan">
 
             <div class="form-group row">
@@ -70,7 +71,8 @@
 export default {
     data(){
         return {
-            loan:{}
+            loan:{},
+            validationErrors:''
         }
     },
     methods: {
@@ -78,9 +80,21 @@ export default {
             let uri = '/api/loan/create';
             this.axios.post(uri, this.loan).then((response) => {
                 console.log(response);
+                this.flash('The loan has been saved', 'success',{
+                    timeout: 3000
+                });
                 this.$router.push({name: 'loans'});
+            })
+            .catch((error) => {
+                // console.log(error.response);
+
+                if (error.response.status == 422){
+                    this.validationErrors = error.response.data.errors;
+                }
+
             });
         }
     }
 }
 </script>
+

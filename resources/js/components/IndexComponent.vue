@@ -53,7 +53,12 @@ export default {
             let uri = `/api/loan/delete/${id}`;
             this.axios.delete(uri).then(response => {
                 this.loans.splice(this.loans.indexOf(id), 1);
+
+                this.flash('The loan has been deleted', 'info',{
+                    timeout: 3000
+                });
             });
+            
         }
     }
 }

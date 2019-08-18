@@ -1,8 +1,12 @@
 require('./bootstrap');
+require('vue-flash-message/dist/vue-flash-message.min.css');
 
 window.Vue = require('vue');
 
 Vue.use(require('vue-moment'));
+import Vue from 'vue';
+import VueFlashMessage from 'vue-flash-message';
+Vue.use(VueFlashMessage);
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -48,3 +52,5 @@ const routes = [
 
 const router = new VueRouter({ mode: 'history', routes: routes});
 const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+
+

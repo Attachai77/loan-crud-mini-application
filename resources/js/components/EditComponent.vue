@@ -1,6 +1,7 @@
 <template>
     <div>
         <h3>Edit Loan</h3>
+        <validation-errors :errors="validationErrors" v-if="validationErrors"></validation-errors>
         <form @submit.prevent="updateLoan">
 
             <div class="form-group row">
@@ -67,29 +68,38 @@
 </template>
 
 <script>
-    export default {
+export default {
 
-      data() {
+    data() {
         return {
-          loan: {}
+            loan: {},
+            validationErrors:''
         }
-      },
-      created() {
+    },
+    created() {
         let uri = `/api/loan/edit/${this.$route.params.id}`;
         this.axios.get(uri).then((response) => {
             this.loan = response.data;
             console.log(response.data);
             // console.log(this.$route.params.id);
         });
-      },
-      methods: {
+    },
+    methods: {
         updateLoan() {
-          let uri = `/api/loan/update/${this.$route.params.id}`;
-          this.axios.post(uri, this.loan).then((response) => {
-            this.$router.push({name: 'loans'});
-            console.log(response);
-          });
+            let uri = `/api/loan/update/${this.$route.params.id}`;
+            this.axios.post(uri, this.loan).then((response) => {
+                this.flash('The loan has been updated successfully', 'info',{
+                    timeout: 3000
+                });
+                this.$router.push({name: 'loans'});
+                console.log(response);
+            })
+            .catch((error) => {
+                if (error.response.status == 422){
+                    this.validationErrors = error.response.data.errors;
+                }
+            });
         }
-      }
     }
+}
 </script>

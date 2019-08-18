@@ -72,6 +72,7 @@ export default {
             this.PaymentSchedules = response.data.data;
             console.log(response.data);
         });
+
     },
     methods: {
         formatNumber(value) {

@@ -38830,7 +38830,7 @@ var render = function() {
           _c("div", { staticClass: "form-group row" }, [
             _c("div", { staticClass: "col-sm-6 offset-2" }, [
               _c("button", { staticClass: "btn btn-primary" }, [
-                _vm._v("Create")
+                _vm._v("Update")
               ]),
               _vm._v(" "),
               _c(

@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "laravel-vue-pagination": "^2.3.0",
         "vue-axios": "^2.1.4",
         "vue-flash-message": "^0.7.2",
         "vue-moment": "^4.0.0",

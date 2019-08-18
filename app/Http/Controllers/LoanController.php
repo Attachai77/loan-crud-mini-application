@@ -24,7 +24,7 @@ class LoanController extends Controller
         $validatedData = $request->validate([
             'loan_amount' => 'required|integer|min:1000|max:100000000',
             'loan_term' => 'required|integer|min:1|max:50',
-            'interest_rate' => 'required|integer|min:1|max:36',
+            'interest_rate' => 'required|numeric|min:1|max:36',
             'start_date' => 'required',
         ]);
 
@@ -57,7 +57,7 @@ class LoanController extends Controller
         $validatedData = $request->validate([
             'loan_amount' => 'required|integer|min:1000|max:100000000',
             'loan_term' => 'required|integer|min:1|max:50',
-            'interest_rate' => 'required|integer|min:1|max:36',
+            'interest_rate' => 'required|numeric|min:1|max:36',
             'start_date' => 'required',
         ]);
 

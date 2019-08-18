@@ -59,7 +59,7 @@
             <br />
             <div class="form-group row">
                 <div class="col-sm-6 offset-2">
-                    <button class="btn btn-primary">Create</button>
+                    <button class="btn btn-primary">Update</button>
                     <button @click="$router.push('/')" type="button" class="btn btn-light">Back</button>
                 </div>
             </div>

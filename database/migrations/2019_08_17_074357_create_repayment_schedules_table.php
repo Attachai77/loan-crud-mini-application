@@ -17,10 +17,10 @@ class CreateRepaymentSchedulesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('loan_id');
             $table->date('date');
-            $table->float('payment_amount', 32, 16);
-            $table->float('principal', 32, 16);
-            $table->float('interest', 32, 16);
-            $table->float('balance', 32, 16);
+            $table->float('payment_amount', 21, 6);
+            $table->float('principal', 21, 6);
+            $table->float('interest', 21, 6);
+            $table->float('balance', 21, 6);
             $table->timestamps();
         });
     }

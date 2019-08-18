@@ -17,7 +17,7 @@ class CreateLoansTable extends Migration
             $table->bigIncrements('id');
             $table->integer('loan_amount');
             $table->integer('loan_term');
-            $table->float('interest_rate', 5, 2);
+            $table->float('interest_rate', 21, 6);
             $table->date('start_date');
             $table->timestamps();
         });

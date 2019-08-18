@@ -50,6 +50,10 @@ class LoanController extends Controller
 
       $loan->update($input);
 
+      RepaymentSchedule::where('loan_id', $id)->delete();
+
+      $genaratePS = $this->genaratePaymentSchedule($input , $id);
+
       return response()->json('successfully updated');
     }
 
